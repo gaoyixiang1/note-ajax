@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">点我发送</button>
+    <script type="text/javascript">
+      var btn = document.getElementById('btn');
+      btn.onclick = function(){
+        jsonp({
+            url:'http://localhost:3001/better',
+            data:{
+                age:12,
+                name:'ss'
+            },
+            success:function(data){
+                console.log('22');
+                console.log(data);
+            }
+        })
+      }
+
+      function jsonp(options){
+        var script = document.createElement('script');
+        var params = '';
+        //attr是变量，.后面不能跟变量，因此用[]
+        for(let attr in options.data){
+            params+='&'+attr +'='+options.data[attr]
+        }
+        var fnName ='myJsonp'+ Math.random().toString().replace('.','');  
+        window[fnName] = options.success
+            script.src = options.url+'?callback='+fnName+params;
+            document.body.appendChild(script);
+            script.onload = function(){
+                document.body.removeChild(script);
+            }
+      }
+    </script>
+</body>
+</html>

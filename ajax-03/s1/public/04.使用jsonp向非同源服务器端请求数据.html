@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">点我发送</button>
+
+    <script>
+        function fn(data) {
+            console.log('客户端的fn');
+            console.log(data);
+        }
+    </script>
+
+    <script type="text/javascript">
+        var btn = document.getElementById('btn');
+
+        btn.onclick = function () {
+            var script = document.createElement('script');
+            script.src = 'http://localhost:3001/better?callback=fn';
+            script.type = "text/javascript";
+            document.body.appendChild(script);
+            script.onload = function(){
+                document.body.removeChild(script);
+            }
+        }
+
+    </script>
+</body>
+
+</html>

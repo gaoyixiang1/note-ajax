@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+    function fn2(data){
+        console.log('客户端的fn2');
+        console.log(data);
+    }
+    </script>
+    <script type="text/javascript" src="http://localhost:3001/better?callback=fn2"></script>
+</body>
+</html>

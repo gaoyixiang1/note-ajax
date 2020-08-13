@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/jquery.min.js"></script>
+</head>
+<body>
+    <form id="form">
+		<input type="text" name="username">
+		<input type="password" name="password">
+		<input type="submit" value="提交">
+    </form>
+    <script type="text/javascript">
+    $("#form").on('submit',function(){
+        var param = $('#form').serialize();
+        console.log(param);
+        serializeObject($(this))
+        return false;
+    })
+        //  将输入内容转化为对象类型
+    function serializeObject(obj){
+        var result = {};
+        var params = obj.serializeArray()
+        $.each(params,function(index,value){
+            result[value.name] = value.value;
+        })
+       return result;
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/jquery.min.js"></script>
+</head>
+<body>
+    <button id="btn">发送请求</button>
+    <script type="text/javascript">
+    function fn(response){
+        console.log(response);
+    }
+    $('#btn').on('click',function(){
+        $.ajax({
+            url:'/jsonp',
+            dataType:'jsonp',
+            
+            jsonp:'cb',
+            //定义全局函数fn,就不需要success了
+            jsonpCallback:'fn',
+            // success:function(response){
+            //     console.log(response);
+            // }
+        })
+    })
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+	<link rel="stylesheet" href="./assets/bootstrap/dist/css/bootstrap.min.css">
+	<style type="text/css">
+		p:not(:empty) {
+			padding: 15px;
+		}
+
+		.container {
+			padding-top: 100px;
+		}
+	</style>
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="form-group">
+				<label>邮箱地址</label>
+				<input type="email" class="form-control" placeholder="请输入邮箱地址" id="email" value="">
+			</div>
+			<p id="info"></p>
+		</div>
+		<script src="/js/ajax.js"></script>
+		<script type="text/javascript">
+		var emailInput = document.getElementById('email');
+		var info = document.getElementById('info');
+		emailInput.onblur = function(){
+			var email = emailInput.value;
+			// console.log(email);
+			var reg = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
+			if(!reg.test(email)){
+				info.innerHTML = '邮箱地址格式不符合要求';
+				info.className = 'bg-danger';
+				return;
+			}
+			var option = {
+				type: 'get',
+				url: 'http://localhost:8080/verifyEmailAdress',
+				data: {
+					email:emailInput.value
+				},
+				success: function (result) {
+					info.innerHTML = result.message;
+					info.className = 'bg-success';
+				},
+				error: function (result) {
+					info.innerHTML = result.message;
+					info.className = 'bg-danger';
+				}
+			}
+			ajax(option);
+		}
+
+		
+// console.log(option.data.email.value);
+
+		</script>
+	</body>
+
+</html>

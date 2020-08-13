@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/bootstrap/dist/css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+<style>
+    .container {
+			padding-top: 150px;
+		}
+		.list-group {
+			display: none;
+		}
+</style>
+<body>
+    <script src="./js/ajax.js"></script>
+    <div class="container">
+		<div class="form-group">
+			<input type="text" class="form-control" placeholder="请输入搜索关键字" id="search">
+			<ul class="list-group" id="list-box">
+				
+			</ul>
+		</div>
+    </div>
+    <script src="./js/template-web.js"></script>
+    <script type="text/html" id="tpl">
+		{{each result}}
+			<li class="list-group-item">{{$value}}</li>
+		{{/each}}
+	</script>
+    <script type="text/javascript">
+    var search = document.getElementById('search');
+    var listBox = document.getElementById('list-box');
+    var timer =null;
+    search.oninput = function(){
+        clearTimeout(timer)
+        var key = this.value;
+        if(key.trim().length == 0){
+            listBox.display='none';
+            return;
+        }
+
+        timer = setTimeout(function(){     
+        ajax({
+            type:'get',
+            url:'http://localhost:8080/search',
+            data:{
+                key:key
+            },
+            success:function(result){
+                var html = template('tpl',{result:result})
+                listBox.innerHTML = html;
+                listBox.style.display='block'
+            }
+        })
+    },800)
+}
+    </script>
+</body>
+</html>
